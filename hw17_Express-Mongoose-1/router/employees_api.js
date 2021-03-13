@@ -25,7 +25,7 @@ router.put("/create", function(req, res) {
   res.redirect(301, '/employees/all');
   });
 router.post('/create',function(req, res) {
- console.log(req.body);
+
    Create2(req)
    res.redirect(301, '/employees/all');
   
@@ -40,14 +40,25 @@ router.post('/create',function(req, res) {
     res.redirect(301, '/employees/all');
   })
   router.put("/update/:id", (req, res) => {
- 
+ console.log("***"+req.params.id);
+ console.log(req.body);
   EmployeeList.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
-  
         if (err) return res.status(500).send("Somthing went wrong in update user! \n" + err);
         res.redirect(301, '/employees/all');
         
     })
 });
+
+router.get('/employee/:id', (req, res) => {
+  EmployeeList.findOne({
+      '_id': req.params.id
+    })
+    .then(function (doc) {
+      if (!doc)
+        throw new Error('No record found.');
+      res.json(doc);
+    });
+})
 
 function Create2(req){
   const NEW_EMPLOYEE = new EmployeeList(req.body)

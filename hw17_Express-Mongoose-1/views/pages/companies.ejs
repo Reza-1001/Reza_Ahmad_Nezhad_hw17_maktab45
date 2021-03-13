@@ -1,120 +1,130 @@
 <%-include('../partial/header')-%>
 <div class=" container">
-    <center>
-    <div class="card" style="width: fit-content;">
-        <div class="card-body">
-         <form action="/companies/create" method="POST">
-                <div class="row">
-                  <div class="row">
-                    <div class="form-group col-md-12">
-                      <input type="text" class="form-control" name="name" placeholder="Name" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="form-group col-md-12"">
-                          <input type="text" class="form-control" name="registrationNo" placeholder="Registration Number" required>
-                        </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-md-12"">
-                        <input type="text" class="form-control" name="city" placeholder="City" required>
-                      </div>
-                </div>
-                </div>
-                <div class="row">
-                  <div class="row">
-                    <div class="form-group col-md-12">
-                      <input type="text" class="form-control" name="state" placeholder="State" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="form-group col-md-12"">
-                          <input type="text" class="form-control" name="registrationDate" placeholder="Registration Date" required>
-                        </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-md-12"">
-                        <input type="text" class="form-control" name="tel" placeholder="Tel" required>
-                      </div>
-                </div>
-                </div>
-                <button type="submit">Submit</button>
-              </form> 
-        </div>
+  <center>
+    <div class="card">
+      <button id="show_add_panel">+</button>
+      <div class="card-body" id="slide">
+        <form  action="/companies/create" method="POST">
+          <div id="data-input" class="row flex-wrap justify-between p-1 col-4">
+            <label for="name" >Company Name</label>
+            <input type="text" class="form-control input_border input_value" id= "name" name="name" required>
+            <label for="registrationNo" class="mt-3">Registration Number</label>
+            <input type=" text" class="form-control input_border input_value" id="registrationNo" name="registrationNo" required>
+            <label for="city" class="mt-3">City</label>
+            <input type=" text" class="form-control input_border input_value" id="city" name="city" required>
+            <label for="state" class="mt-3">State</label>
+            <input type="text" class="form-control input_border input_value" id="state" name="state" required>
+            <label for="registrationDate" class="mt-3">Registration Date</label>
+            <input type=" text" class="form-control input_border input_value" id="datepicker" name="registrationDate" required>
+            <label for="tel" class="mt-3">Tel</label>
+            <input type=" text" class="form-control input_border input_value" id="tel" name="tel" required>
+          </div>
+          <button id="submit" type="submit" class="mt-3">Submit</button>
+          <button id="save" type="button" class="mt-3 d-none">Save</button>
+          <button id="cancel" type="button" class="mt-3">Cancel</button>
+        </form>
       </div>
-    </center>
-    <br>
-   
-    <%if(data.length>0){%>
-        <center>
-        <div style="width:auto; border-style: solid;border-color: black;">
-        <table class="table table-border table-hover">
-            <thead class="bg-warning">
-                <tr>
-                    <% for (let i in Object.keys(data[0])){%>
-                    <th>
-                        <%= Object.keys(data[0].toJSON())[i] %>
-                    </th>
-                    <% } %>
-                    <th class="edit_panel" >
-                      Edit
-                    </th>
-                </tr>
-                    
-                    
-                
-            </thead>
-            <tbody>
-                <%for(var i=0;i< data.length;i++){%>
-                <tr id=<%= data[i].id %>>
-                    <td >
-                        <%= i %>
-                    </td>
-                    <td >
-                     <%= data[i].name %>
-                    </td>
-                    <td >
-                      <%=data[i].registrationNo %>
-                    </td>
-                    <td>
-                        <%=data[i].city %>
-                      </td>
-                      <td >
-                      
-                        <%=data[i].state %>
-                      </td>
-                      <td>
-                        <%= `${data[i].registrationDate.getFullYear()}-${data[i].registrationDate.getMonth()}-${data[i].registrationDate.getDate()}` %>
-                      </td>
-                      <td>
-                        <%= data[i].tel %>
-                      </td>
-                      <td class="edit_panel" >
-                        <form action="/companies/delete<%= data[i]._id %>" method="GET" class="row">
-                        <input type="submit" value="Delete">
-                        <input type="button" value="Edit" class="btn_company_edit">
-                      </form>
-                    </td>
-                </tr>
-                <%}%>
+    </div>
+  </center>
+  <br>
+
+  <%if(data.length>0){%>
+  <center>
+    <div >
+      <form id="company_Page_request" action=""></form>
+      <table class="table table-border table-hover">
+        <thead class="bg-warning">
+          <tr>
+            <th>
+              No.
+            </th>
+            <th>
+              Company Name
+            </th>
+            <th>
+             Registration No.
+            </th>
+            <th>
+              City
+            </th>
+            <th>
+              State
+            </th>
+            <th>
+              Registration Date
+            </th>
+            <th>
+             Tel
+            </th>
+            <th class="edit_panel">
+              Edit
+            </th>
+          </tr>
+
+
+
+        </thead>
+        <tbody>
+          <%for(var i=0;i< data.length;i++){%>
+          <tr id=<%= data[i].id %>>
+            <td>
+              <%= i %>
+            </td>
+            <td>
+              <%= data[i].name %>
+            </td>
+            <td>
+              <%=data[i].registrationNo %>
+            </td>
+            <td>
+              <%=data[i].city %>
+            </td>
+            <td>
+
+              <%=data[i].state %>
+            </td>
+            <td>
+              <%= `${data[i].registrationDate.getFullYear()}-${data[i].registrationDate.getMonth()}-${data[i].registrationDate.getDate()}` %>
+            </td>
+            <td>
+              <%= data[i].tel %>
+            </td>
+            <td class="edit_panel">
+              <form action="/companies/delete<%= data[i]._id %>" method="GET" class="row">
+                <input type="submit" value="Delete">
+                <input type="button" value="Edit" class="btn_company_edit">
+              </form>
+            </td>
+          </tr>
+          <%}%>
             </tbody>
         </table>
         
     </div>
     </center>
     <%}%>
-    <div class="">
-      <form action="/companies/all?q=1" method="GET">
-        <input type="submit" value="Companies Registered in less than"></input>
-        <input type="text" name="q" value="1">
-      </form>
-      <form action="/companies/update/cityname" method="GET">
-        <input type="submit" value="Change city and state to Tehran"></input>
-      </form>
+          <div class="">
+            <form action="/companies/all?q=1" method="GET">
+              <select type="text" class="form-control input_border" required>
+                <option value="Companies Registered in less than">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </form>
+          </div>
     </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-      <script type="text/javascript" src="/js/main.js"></script> 
-      </body>
-       </html>
+ 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+
+    </body>
+
+    </html>

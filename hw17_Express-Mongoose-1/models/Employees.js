@@ -14,13 +14,18 @@ const employeeSchema = new Schema({
   gender: {
     type: String,
     required:true,
-    enum: ['male', 'female']
+    enum: ['Male', 'Female']
   },
   manager: {
     type: String,
     required:true,
     enum: ['Yes', 'No']
   },
+  companyID:{
+    type:Schema.Types.ObjectId,
+    ref:'CompanyList',
+    required:true,
+  }, 
   dateOfBirth: {
     type: Date,
   }

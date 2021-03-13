@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
       
 router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/',(req,res)=>{
-    res.render('./../views/pages/companies.ejs',{data:{}})
+    res.redirect(301, '/companies/all');
+
 })
 router.use("/companies", companiesRouter);
 

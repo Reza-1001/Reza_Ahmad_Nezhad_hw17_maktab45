@@ -1,107 +1,104 @@
 <%-include('../partial/header')-%>
 <div class=" container">
-    <center>
-    <div class="card" style="width: fit-content;">
-        <div class="card-body">
-          <form action="/employees/create" method="POST">
-            <div class="row">
-              <div class="row">
-                <div class="form-group col-md-12">
-                  <input type="text" class="form-control" name="firstName" placeholder="First Name" required>
-                </div>
-              </div>
-              <div class="row">
-                  <div class="form-group col-md-12"">
-                      <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
-                    </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-12"">
-                    <input type="text" class="form-control" name="nationalId" placeholder="National ID" required>
-                  </div>
-            </div>
-            </div>
-            <div class="row">
-              <div class="row">
-                <div class="form-group col-md-12">
-                  <select type="text" class="form-control" name="gender" required>
-                    <option value="male" >male</option>
-                    <option value="female">female</option>
-                    </select>
-                </div>
-              </div>
-              <div class="row">
-                  <div class="form-group col-md-12"">
-                      <select type="text" class="form-control" name="manager" required>
-                        <option value="Yes" >Yes</option>
-                        <option value="No">No</option>
-                        </select>
-                    </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-12"">
-                    <input type="text" class="form-control" name="dateOfBirth" placeholder="Date of Birth" required>
-                  </div>
-            </div>
-            </div>
-            <button type="submit">Submit</button>
-          </form> 
-        </div>
+  <center>
+    <div class="card">
+      <button id="show_add_panel">+</button>
+      <div class="card-body" id="slide">
+        <form  action="/employees/create" method="POST">
+          <div id="data-input" class="row col-4">
+            <label for="name" >First Name</label>
+            <input type="text" class="form-control input_border" id="first_name" name="firstName" required style="border:none;border-bottom:1px solid red">
+            <label for="name">Last Name</label>
+            <input type="text" class="form-control input_border" id="last_name" name="lastName" required>
+            <label for="name">National ID</label>
+            <input type="text" class="form-control input_border" id="national_id" name="nationalId" required>
+            <label for="name">Gender</label>
+            <select type="text" id="gender" class="form-control input_border" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <label for="manager">Manager</label>
+            <select type="text" id="manager" class="form-control input_border" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="text" class="form-control input_border" id="datepicker" name="dateOfBirth" required>
+          </div>
+          <button id="submit" type="submit" class="mt-3">Submit</button>
+          <button id="save" type="button" class="mt-3 d-none">Save</button>
+          <button id="cancel" type="button" class="mt-3">Cancel</button>
+        </form>
       </div>
-    </center>
-    <br>
-   
-    <%if(data.length>0){%>
-        <center>
-        <div style="width:auto; border-style: solid;border-color: black;">
-        <table class="table table-border table-hover">
-          <thead class="bg-warning">
-            <tr>
-                <% for (let i in Object.keys(data[0])){%>
-                <th>
-                    <%= Object.keys(data[0].toJSON())[i] %>
-                </th>
-                <% } %>
-                <th class="edit_panel">
-                  Edit
-                </th>
-            </tr>
-                
-                
-            
+    </div>
+  </center>
+  <br>
+
+  <%if(data.length>0){%>
+  
+  <center>
+    <div style="width:auto; border-style: solid;border-color: black;">
+      <table class="table table-border table-hover">
+        <thead class="bg-warning">
+          <tr>
+            <th>
+              No.
+            </th>
+            <th>
+              First Name
+            </th>
+            <th>
+              Last Name
+            </th>
+            <th>
+              National ID
+            </th>
+            <th>
+              Gender
+            </th>
+            <th>
+              Manager
+            </th>
+            <th>
+              Date of Birth
+            </th>
+            <th class="edit_panel">
+              Edit
+            </th>
+          </tr>
         </thead>
-            <tbody>
-                <%for(var i=0;i< data.length;i++){%>
-                <tr id=<%= data[i].id %>>
-                    <td>
-                        <%= i %>
-                    </td>
-                    <td>
-                     <%=data[i].firstName %>
-                    </td>
-                    <td>
-                      <%=data[i].lastName %>
-                    </td>
-                    <td>
-                        <%=data[i].nationalId %>
-                      </td>
-                      <td>
-                        <%=data[i].gender %>
-                      </td>
-                      <td>
-                        <%= data[i].manager %>
-                      </td>
-                      <td>
-                        <%= `${data[i].dateOfBirth.getFullYear()}-${data[i].dateOfBirth.getMonth()}-${data[i].dateOfBirth.getDate()}` %>
-                      </td>
-                      <td class="edit_panel" >
-                        <form action="/employees/delete<%= data[i]._id %>" method="GET" class="row">
-                        <input type="submit" value="Delete">
-                        <input type="button" value="Edit" class="btn_employee_edit">
-                      </form>
-                    </td>
-                </tr>
-                <%}%>
+        <tbody>
+          <%for(var i=0;i< data.length;i++){%>
+          <tr id=<%= data[i].id %>>
+            <td>
+              <%= i %>
+            </td>
+            <td>
+              <%=data[i].firstName %>
+            </td>
+            <td>
+              <%=data[i].lastName %>
+            </td>
+            <td>
+              <%=data[i].nationalId %>
+            </td>
+            <td>
+              <%=data[i].gender %>
+            </td>
+            <td>
+              <%= data[i].manager %>
+            </td>
+            <td>
+              <%= `${data[i].dateOfBirth.getFullYear()}-${data[i].dateOfBirth.getMonth()}-${data[i].dateOfBirth.getDate()}` %>
+            </td>
+            <td class="edit_panel">
+              <form action="/employees/delete<%= data[i]._id %>" method="GET" class="row">
+                <input type="submit" value="Delete">
+                <input type="button" value="Edit" class="btn_employee_edit">
+              </form>
+            </td>
+          </tr>
+          <%}%>
             </tbody>
         </table>
       
@@ -109,20 +106,29 @@
     </center>
   
     <%}%>
-    <div class="row mt-5 mx-1">
-      <form action="/employees/all/manager" method="GET">
-        <input type="submit" value="Get all managers"></input>
-      </form>
-      <form action="/employees/all" method="GET">
-        <input type="submit" value="Get all employees"></input>
-      </form>
-      <form action="/employees/all/agelimit" method="GET">
-        <input type="submit" value="Get all employees betwen 20-30"></input>
-      </form>
+          <div class="row mt-5 mx-1">
+            <form action="/employees/all/manager" method="GET">
+              <input type="submit" value="Get all managers"></input>
+            </form>
+            <form action="/employees/all" method="GET">
+              <input type="submit" value="Get all employees"></input>
+            </form>
+            <form action="/employees/all/agelimit" method="GET">
+              <input type="submit" value="Get all employees betwen 20-30"></input>
+            </form>
+          </div>
     </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-       <script type="text/javascript" src="/js/main.js"></script> 
-      </body>
-       </html>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    </body>
+
+    </html>
