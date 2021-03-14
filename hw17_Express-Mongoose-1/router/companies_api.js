@@ -80,6 +80,24 @@ router.get("/update/cityname", (req, res) => {
   })
 });
 
+router.get('/all/ce',(req,res)=>{
+  let data=[];
+  CompanyLists.find({},(err,companies)=>{
+    
+    for (let i of companies){
+      
+      EmployeeList.find({"manager":{$eq:"Yes"},"companyId":{$eq:i._id}},(err,manager)=>{
+        for(let j in manager){
+        data.push([i.name,`${manager[j].firstName} ${manager[j].lastName}`])
+        }
+        console.log(data)
+      })
+    }
+    res.json(data)
+  })
+
+  
+})
 
 router.get('/company/:id', (req, res) => {
 
