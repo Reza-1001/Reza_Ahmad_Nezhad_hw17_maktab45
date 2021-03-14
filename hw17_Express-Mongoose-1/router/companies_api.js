@@ -31,7 +31,12 @@ router.get("/all", (req, res) => {
   }
 });
 
-
+router.get("/all/companynames",(req,res)=>{
+  CompanyLists.find({},{"name":1},(err,companies)=>{
+    if (err) return res.status(500).send("Somthing went wrong! \n" + err);
+    res.json(companies);
+  })
+})
 router.put("/create", function (req, res) {
   Create(req)
   res.redirect(301, '/companies/all');

@@ -21,7 +21,7 @@ const employeeSchema = new Schema({
     required:true,
     enum: ['Yes', 'No']
   },
-  companyID:{
+  companyId:{
     type:Schema.Types.ObjectId,
     ref:'CompanyList',
     required:true,
