@@ -1,0 +1,12 @@
+.input_border{
+border:none;
+border-bottom:1px solid black;
+}
+#show_add_panel{
+    width:100px;
+    border-radius: 200px;
+    font-size:20px;
+}
+#slide{
+    display:none;
+}
