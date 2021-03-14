@@ -103,14 +103,14 @@
     </div>
     </center>
     <%}%>
-          <div class="">
-            <form action="/companies/all?q=1" method="GET">
-              <select type="text" class="form-control input_border" required>
-                <option value="Companies Registered in less than">Yes</option>
-                <option value="No">No</option>
-              </select>
-            </form>
-          </div>
+    <div class="row mt-5 mx-1">
+      <form action="/companies/all/1year" method="GET">
+        <input type="submit" value="All companies registerd in Less than 1 year"></input>
+      </form>
+      <form action="/companies/update/changetotehran" method="GET">
+        <input type="submit" value="Change city and state to tehran"></input>
+      </form>
+    </div>
     </div>
  
     <script src="https://code.jquery.com/jquery-3.6.0.js"

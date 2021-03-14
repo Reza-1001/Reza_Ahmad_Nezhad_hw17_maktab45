@@ -22,9 +22,9 @@ router.get("/all/employees", (req, res) => {
     });
 });
 router.get("/tele/manager", (req, res) => {
-  CompanyLists.findOne({"name":{$eq:"Tele"}},(err,id)=>{
+  CompanyLists.findOne({"name":{$eq:"Apple"}},(err,id)=>{
     if (!id) return res.status(500).send("Company not found \n!" + err);
-    EmployeeList.findOne({"companyId":{$eq:id._id},"manager":{$eq:"Yes"}},(err,manager)=>{
+    EmployeeList.findOne({"companyId":{$eq:id._id},"manager":{$eq:"Yes"}},{_id:0,firstName:1,lastName:1},(err,manager)=>{
       if (err) return res.status(500).send("Company manager not found \n!" + err);
       console.log(manager)
       res.json(manager);

@@ -8,28 +8,27 @@ router.use(bodyParser.urlencoded({
   extended: true
 }));
 router.get("/all", (req, res) => {
-
-  if (req.query.q) {
-    CompanyLists.find({}, (err, companies) => {
-      let newCompanies = []
-      let yearNow = new Date().getFullYear();
-      for (let i of companies) {
-        if (yearNow - i.registrationDate.getFullYear() <= 1)
-          newCompanies.push(i)
-      }
-      return res.render('./../views/pages/companies.ejs', {
-        data: newCompanies
-      })
-
-    });
-  } else {
     CompanyLists.find({}, (err, companies) => {
       return res.render('./../views/pages/companies.ejs', {
         data: companies
       })
     });
-  }
 });
+router.get("/all/1year", (req, res) => {
+  CompanyLists.find({}, (err, companies) => {
+    let newCompanies = []
+    let yearNow = new Date().getFullYear();
+    for (let i of companies) {
+      if (yearNow - i.registrationDate.getFullYear() <= 1)
+        newCompanies.push(i)
+    }
+    return res.render('./../views/pages/companies.ejs', {
+      data: newCompanies
+    })
+
+  });
+});
+
 
 router.get("/all/companynames",(req,res)=>{
   CompanyLists.find({},{"name":1},(err,companies)=>{
@@ -66,7 +65,7 @@ router.put("/update/:id", (req, res) => {
     res.redirect(301, '/companies/all');
   })
 });
-router.get("/update/cityname", (req, res) => {
+router.get("/update/changetotehran", (req, res) => {
   CompanyLists.updateMany({}, {
     $set: {
       city: "Tehran",
