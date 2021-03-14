@@ -1,38 +1,71 @@
 let id;
 let updateUrl;
 let currentTable;
+
 $("document").ready(function () {
+  $("#company-info-panel").slideDown();
+  $("#manager-table").slideUp();
+  $("#employees-table").slideUp();
   $(function () {
     $("#datepicker").datepicker({
       dateFormat: "yy-mm-dd"
     });
-  });
-  $("#show_add_panel").click(function () {
+    var from = $( "#fromDate" )
+      .datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true
+      })
+      .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+      }),
+    to = $( "#toDate" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      changeMonth: true
+    })
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
 
+  function getDate( element ) {
+    var date;
+    var dateFormat = "yy-mm-dd";
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
+
+    return date;
+  }
+  });
+
+  $('#btn-company-info').click(function(){
+    $("#company-info-panel").slideToggle();
+    $("#manager-table").slideUp();
+    $("#employees-table").slideUp();
+  })
+  $('#btn-manager-info').click(function(){
+    $("#company-info-panel").slideUp();
+    $("#manager-table").slideDown();
+    $("#employees-table").slideUp();
+  })
+  $('#btn-employees-info').click(function(){
+    $("#company-info-panel").slideUp();
+    $("#manager-table").slideUp();
+    $("#employees-table").slideDown();
+  })
+  $("#show_add_panel").click(function () {
     $("#show_add_panel").css('display', 'none')
     $("#slide").slideToggle();
     $('table').slideToggle();
-
-    $.ajax({
-      url: '/companies/all/companynames',
-      method: "Get",
-      contentType: "application/json",
-      success: function (data) {
-        for (let i of data) {
-          let newOption = `<option value=${i._id}>${i.name}</option>`;
-          $("#company_list").html($("#company_list").html() + newOption)
-        }
-      }
-    });
   })
   $("#cancel").click(function () {
     $('#save').addClass('d-none');
-    $("#show_add_panel").css('display', 'inline-block');
+    $("#show_add_panel").css('display', 'inline-block')
     $('.input_value').val("");
     $("#slide").slideToggle();
     $('table').slideToggle();
   })
-
   $(".btn_company_edit").click(function () {
     EditDATA($(this), '/companies/company/')
   });

@@ -31,7 +31,11 @@
   <%if(data.length>0){%>
   <center>
     <div >
+      <form id="date-filter" action="/companies/filterbydate/" method="GET">
+        <p>Date: <input type="text" value="" id="fromDate" name="fromDate" required> TO <input value="" type="text" id="toDate" name="toDate" required> <input type="submit"></p>
+      </form>
       <form id="company_Page_request" action="" method="get"></form>
+      
       <table class="table table-border table-hover">
         <thead class="bg-warning">
           <tr>
