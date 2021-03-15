@@ -6,10 +6,13 @@ $("document").ready(function () {
   $("#company-info-panel").slideDown();
   $("#manager-table").slideUp();
   $("#employees-table").slideUp();
+
+  // adding datepicker to form
   $(function () {
     $("#datepicker").datepicker({
       dateFormat: "yy-mm-dd"
     });
+    //datepicker start Date
     var from = $( "#fromDate" )
       .datepicker({
         dateFormat: "yy-mm-dd",
@@ -18,6 +21,7 @@ $("document").ready(function () {
       .on( "change", function() {
         to.datepicker( "option", "minDate", getDate( this ) );
       }),
+      //datepicker End Date
     to = $( "#toDate" ).datepicker({
       dateFormat: "yy-mm-dd",
       changeMonth: true
@@ -61,19 +65,20 @@ $("document").ready(function () {
   })
   $("#cancel").click(function () {
     $('#save').addClass('d-none');
+    $('#submit').removeClass('d-none');
     $("#show_add_panel").css('display', 'inline-block')
     $('.input_value').val("");
     $("#slide").slideToggle();
     $('table').slideToggle();
   })
   $(".btn_company_edit").click(function () {
-    EditDATA($(this), '/companies/company/')
+    EditDATA($(this), 'http://localhost:5000/companies/company/edit/')
   });
   $(".btn_employee_edit").click(function () {
-    EditDATA($(this), '/employees/employee/')
+    EditDATA($(this), 'http://localhost:5000/employees/employee/edit/')
   });
-  $("#save").click(function () {
 
+  $("#save").click(function () {
     let data;
     if (currentTable == "companies") {
       data = {
@@ -103,6 +108,7 @@ $("document").ready(function () {
     });
 
     $('#save').addClass('d-none');
+    $('#submit').removeClass('d-none');
     $("#show_add_panel").css('display', 'inline-block');
     $('.input_value').val("");
     $("#slide").slideToggle();
@@ -127,6 +133,7 @@ console.log(data)
         if (el[0].className == "btn_company_edit") {
           updateUrl = "http://localhost:5000/companies/update/";
           currentTable = "companies";
+          console.log(1);
           $('#name').val(data.name);
           $('#registrationNo').val(data.registrationNo);
           $('#city').val(data.city);
@@ -149,42 +156,6 @@ console.log(data)
 
       }
     });
-    // if (el.val() == "Edit") {
-    //   $.each(currentTD, function () {
-    //     $(this).prop("contenteditable", true);
-    //     $(this).toggleClass("bg-secondary")
-    //   });
-    // } else {
-
-    //     if (el[0].className == "btn_company_edit")
-    //         url="http://localhost:5000/company/"
-    //     else if(el[0].className == "btn_employee_edit")
-    //         url="http://localhost:5000/employee/"
-    //         console.log(url);
-    //   $.each(currentTD, function () {
-    //     $(this).prop("contenteditable", false);
-    //     $(this).toggleClass("bg-secondary")
-    //   });
-
-    //   let headerList = [];
-    // let rowData = [];
-    // let data={};
-    // for (let i = 1; i < currentTD.length - 1; i++) {
-    //     data[$("thead").find("th")[i].innerText]=currentTD[i].innerText;
-    //   rowData.push(currentTD[i].innerText);
-    //   headerList.push($("thead").find("th")[i].innerText);
-    // }
-    // let id = el.parent().parent().parent().get(0).id;
-
-    // $.ajax({
-    //   url: `${url}${id}`,
-    //   method: "PUT",
-    //   contentType: "application/json",
-    //   dataType: "text",
-    //   data: JSON.stringify(data),
-    // });
-    // }
-    // el.val(el.val() == "Edit" ? "Save" : "Edit");
   }
 
   $(".data-cell").click(function(){

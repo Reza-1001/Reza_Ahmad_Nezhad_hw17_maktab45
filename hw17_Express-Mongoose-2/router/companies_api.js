@@ -54,7 +54,6 @@ router.get('/filterbydate/',(req,res)=>{
     
 
 router.get('/company/:id', (req, res) => {
-  console.log(req.params.id)
   CompanyLists.findOne({'_id': req.params.id}).then(function (company) {
       if (!company)
         throw new Error('No record found.');
@@ -73,6 +72,17 @@ router.get('/company/:id', (req, res) => {
     });
 })
 
+router.get('/company/edit/:id', (req, res) => {
+
+  CompanyLists.findOne({
+      '_id': req.params.id
+    })
+    .then(function (doc) {
+      if (!doc)
+        throw new Error('No record found.');
+      res.json(doc);
+    });
+})
 
 function Create(req) {
   const NEW_COMPANY = new CompanyLists({

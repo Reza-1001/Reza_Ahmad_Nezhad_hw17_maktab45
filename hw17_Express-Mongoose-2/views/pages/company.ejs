@@ -177,28 +177,28 @@
             <form action="/employees/create" method="POST">
                 <div id="data-input" class="row col-4">
                     <label for="name">First Name</label>
-                    <input type="text" class="form-control input_border" id="first_name" name="firstName" required
+                    <input type="text" class="form-control input_border input_value" id="first_name" name="firstName" required
                         style="border:none;border-bottom:1px solid red">
                     <label for="name">Last Name</label>
-                    <input type="text" class="form-control input_border" id="last_name" name="lastName" required>
+                    <input type="text" class="form-control input_border input_value" id="last_name" name="lastName" required>
                     <label for="name">National ID</label>
-                    <input type="text" class="form-control input_border" id="national_id" name="nationalId"
+                    <input type="text" class="form-control input_border input_value" id="national_id" name="nationalId"
                         required>
                     <label for="gender">Gender</label>
-                    <select type="text" id="gender" class="form-control input_border" name="gender" required>
+                    <select type="text" id="gender" class="form-control input_border input_value" name="gender" required>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                     <label for="manager">Manager</label>
-                    <select type="text" id="manager" class="form-control input_border" name="manager" required>
+                    <select type="text" id="manager" class="form-control input_border input_value" name="manager" required>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                     <label for="dateOfBirth">Date of Birth</label>
-                    <input type="text" class="form-control input_border" id="datepicker" name="dateOfBirth"
+                    <input type="text" class="form-control input_border input_value" id="datepicker" name="dateOfBirth"
                         required>
                     <label for="company_list">Company</label>
-                    <select type="text" id="company_list" class="form-control input_border" name="companyId"
+                    <select type="text" id="company_list" class="form-control input_border input_value" name="companyId"
                         required>
                         <option value=<%= data._id %> ><%= data.name %> </option>
                     </select>

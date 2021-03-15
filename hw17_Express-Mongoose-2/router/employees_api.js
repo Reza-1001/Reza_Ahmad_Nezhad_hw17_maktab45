@@ -21,22 +21,25 @@ router.post('/create',function(req, res) {
     console.log(req.params.id)
     EmployeeList.findByIdAndDelete(req.params.id, function(err, obj) {
       if (err) throw err;
-      console.log("1 document deleted");
-      console.log(obj.companyId)
       // res.redirect(301, `/companies/company/${obj.companyId}`);
     });
     
   }) 
   router.put("/update/:id", (req, res) => {
- console.log("***"+req.params.id);
- console.log(req.body);
   EmployeeList.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
         if (err) return res.status(500).send("Somthing went wrong in update user! \n" + err);
         // res.redirect(301, '/employees/all');
          
     })
 });
-
+router.get('/employee/edit/:id', (req, res) => {
+  console.log(req.params.id)
+  EmployeeList.findOne({'_id': req.params.id}).populate('companyId',{name:1,_id:0}).exec((err, doc)=> {
+      if (err) 
+        throw new Error('No record found.');
+      res.json(doc);
+    });
+})
 
 function Create2(req,res){
   console.log(req.body);
